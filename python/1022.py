@@ -1,4 +1,10 @@
-from fractions import Fraction
+from fractions import gcd
+
+def simplify_numerator(numerator, denominator):
+	return numerator / gcd(numerator, denominator)
+
+def simplify_denominator(numerator, denominator):
+	return denominator / gcd(numerator, denominator)
 
 n = input()
 
@@ -22,4 +28,4 @@ for i in range(0,n):
 		n_res = n1*d2
 		d_res = n2*d1
 
-	print "%d/%d = %s" % (n_res, d_res, str(Fraction(n_res, d_res)))
+	print "%d/%d = %d/%d" % (n_res, d_res, simplify_numerator(n_res, d_res), simplify_denominator(n_res, d_res))
