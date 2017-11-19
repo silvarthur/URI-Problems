@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 '''
 Children are taught to add multi-digit numbers from right-to-left 
 one digit at a time. Many find the "carry" operation - in which a 
@@ -23,7 +25,7 @@ numbers, in the format shown below.
 '''
 VERSION 1
 
-40% WRONG
+40 PER CENT WRONG
 
 def get_greatest_value(number1, number2):
 	return number1 if (len(number1) > len(number2)) else number2
@@ -71,7 +73,7 @@ while True:
 			if(number_of_carry_operations == 1):
 				print "1 carry operation."
 			else:
-				print "%d carry operations." % (number_of_carry_operations)
+				print "" carry operations. % (number_of_carry_operations)
 '''
 
 '''
@@ -83,24 +85,41 @@ Ex.: 123 / 10 = 12
 
 '''
 def get_number_of_carry_operations(number1, number2):
-	carry, number_of_carry_operations = 0
+	carry = 0
+	number_of_carry_operations = 0
+
+	while(True):
+		remainder1 = number1 % 10
+		remainder2 = number2 % 10
+
+		number1 = number1 / 10
+		number2 = number2 / 10
+
+		if(remainder1 + remainder2 + carry >= 10):
+			number_of_carry_operations += 1
+			carry = 1
+		else:
+			carry = 0
+
+		if(number1 == 0 and number2 == 0):
+			break
 
 	return number_of_carry_operations
 
 while True:
 	user_input = raw_input().split(" ")
 
-	number1 = user_input[0]
-	number2 = user_input[1]
+	number1 = int(user_input[0])
+	number2 = int(user_input[1])
 
-	if(number1 == "0" and number2 == "0"):
+	if(number1 == 0 and number2 == 0):
 		break
 	else:
 		number_of_carry_operations = get_number_of_carry_operations(number1, number2)
 
 		if(number_of_carry_operations == 0):
 			print "No carry operation."
-		else if(number_of_carry_operations == 1):
+		elif(number_of_carry_operations == 1):
 			print "1 carry operation."
 		else:
 			print "%d carry operations." % (number_of_carry_operations)
