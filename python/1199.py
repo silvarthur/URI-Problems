@@ -29,8 +29,22 @@ def hex_to_dec(number):
 	output = 0
 
 	power = 0
-	for i in reversed(range(0, len(str(number)))):
-		output += (int(str(number)[i]) * (16 ** power))
+	for i in reversed(range(0, len(number))):
+		if(number[i] == "A" or number[i] == "a"):
+			output += (10 * (16 ** power))
+		elif(number[i] == "B" or number[i] == "b"):
+			output += (11 * (16 ** power))
+		elif(number[i] == "C" or number[i] == "c"):
+			output += (12 * (16 ** power))
+		elif(number[i] == "D" or number[i] == "d"):
+			output += (13 * (16 ** power))
+		elif(number[i] == "E" or number[i] == "e"):
+			output += (14 * (16 ** power))
+		elif(number[i] == "F" or number[i] == "f"):
+			output += (15 * (16 ** power))
+		else:
+			output += (int(number[i]) * (16 ** power))
+
 		power += 1
 
 	return output
@@ -41,6 +55,8 @@ while(True):
 	if(user_input == "-1"):
 		break
 	elif(user_input[0:2] == "0x"):
-		print hex_to_dec(int(user_input[2:]))
+		number = user_input[2:]
+		print hex_to_dec(number)
 	else:
-		print "0x" + dec_to_hex(int(user_input))
+		number = int(user_input)
+		print "0x" + dec_to_hex(number)
