@@ -73,8 +73,40 @@ def hex_to_dec(number):
 
 	return str(output)
 
+'''
+Converts a hexadecimal number to a binary number.
+'''
 def hex_to_bin(number):
 	output = ""
+
+	for i in range(0,len(number)):
+		temp_output = ""
+
+		if(number[i] == "A" or number[i] == "a"):
+			temp_number = 10
+		elif(number[i] == "B" or number[i] == "b"):
+			temp_number = 11
+		elif(number[i] == "C" or number[i] == "c"):
+			temp_number = 12
+		elif(number[i] == "D" or number[i] == "d"):
+			temp_number = 13
+		elif(number[i] == "E" or number[i] == "e"):
+			temp_number = 14
+		elif(number[i] == "F" or number[i] == "f"):
+			temp_number = 15
+		else:
+			temp_number = number[i]
+		while(True):
+			remainder = int(temp_number) % 2
+
+			temp_number = str(int(temp_number) / 2)
+
+			temp_output = str(remainder) + temp_output
+
+			if(temp_number == "0"):
+				break
+		output += temp_output
+
 	return output
 
 '''
@@ -91,8 +123,12 @@ def bin_to_dec(number):
 
 	return str(output)
 
+'''
+Converts a binary number to hexadecimal number.
+'''
 def bin_to_hex(number):
 	output = ""
+	
 	return output
 
 n = input()
