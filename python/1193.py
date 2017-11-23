@@ -1,4 +1,28 @@
 '''
+AUXILIAR FUNCTIONS
+'''
+def correct_multiplicity(number):
+	if(len(number) % 4 != 0):
+		number_of_zeros = (4 - (len(number) % 4))
+		return (number_of_zeros * "0") + number
+	else:
+		return number
+
+def create_matrix(number):
+	output = []
+
+	temp_string = ""
+	for i in range(0,len(number)):
+		temp_string += number[i]
+
+		if((i + 1) % 4 == 0 or i == (len(number) - 1)):
+			output.append(temp_string)
+
+			temp_string = ""
+
+	return output
+
+'''
 Converts a decimal number to a hexadecimal number.
 '''
 def dec_to_hex(number):
@@ -10,17 +34,17 @@ def dec_to_hex(number):
 		number = str(int(number) / 16)
 
 		if(remainder == 10):
-			output = "A" + output
+			output = "a" + output
 		elif(remainder == 11):
-			output = "B" + output
+			output = "b" + output
 		elif(remainder == 12):
-			output = "C" + output
+			output = "c" + output
 		elif(remainder == 13):
-			output = "D" + output
+			output = "d" + output
 		elif(remainder == 14):
-			output = "E" + output
+			output = "e" + output
 		elif(remainder == 15):
-			output = "F" + output
+			output = "f" + output
 		else:
 			output = str(remainder) + output
 
@@ -55,17 +79,17 @@ def hex_to_dec(number):
 
 	power = 0
 	for i in reversed(range(0,len(number))):
-		if(number[i] == "A" or number[i] == "a"):
+		if(number[i] == "a"):
 			output += (10 * (16 ** power))
-		elif(number[i] == "B" or number[i] == "b"):
+		elif(number[i] == "b"):
 			output += (11 * (16 ** power))
-		elif(number[i] == "C" or number[i] == "c"):
+		elif(number[i] == "c"):
 			output += (12 * (16 ** power))
-		elif(number[i] == "D" or number[i] == "d"):
+		elif(number[i] == "d"):
 			output += (13 * (16 ** power))
-		elif(number[i] == "E" or number[i] == "e"):
+		elif(number[i] == "e"):
 			output += (14 * (16 ** power))
-		elif(number[i] == "F" or number[i] == "f"):
+		elif(number[i] == "f"):
 			output += (15 * (16 ** power))
 		else:
 			output += (int(number[i]) * (16 ** power))
@@ -82,17 +106,17 @@ def hex_to_bin(number):
 	for i in range(0,len(number)):
 		temp_output = ""
 
-		if(number[i] == "A" or number[i] == "a"):
+		if(number[i] == "a"):
 			temp_number = 10
-		elif(number[i] == "B" or number[i] == "b"):
+		elif(number[i] == "b"):
 			temp_number = 11
-		elif(number[i] == "C" or number[i] == "c"):
+		elif(number[i] == "c"):
 			temp_number = 12
-		elif(number[i] == "D" or number[i] == "d"):
+		elif(number[i] == "d"):
 			temp_number = 13
-		elif(number[i] == "E" or number[i] == "e"):
+		elif(number[i] == "e"):
 			temp_number = 14
-		elif(number[i] == "F" or number[i] == "f"):
+		elif(number[i] == "f"):
 			temp_number = 15
 		else:
 			temp_number = number[i]
@@ -128,7 +152,31 @@ Converts a binary number to hexadecimal number.
 '''
 def bin_to_hex(number):
 	output = ""
-	
+
+	matrix = create_matrix(correct_multiplicity(number))
+
+	for i in range(0,len(matrix)):
+		power = 0
+		temp_hex_number = 0
+		for j in reversed(range(0, len(matrix[i]))):
+			temp_hex_number += (int(matrix[i][j]) * (2 ** power))
+			power += 1
+
+		if(temp_hex_number == 10):
+			output += "a"
+		elif(temp_hex_number == 11):
+			output += "b"
+		elif(temp_hex_number == 12):
+			output += "c"
+		elif(temp_hex_number == 13):
+			output += "d"
+		elif(temp_hex_number == 14):
+			output += "e"
+		elif(temp_hex_number == 15):
+			output += "f"
+		else:
+			output = str(temp_hex_number)
+
 	return output
 
 n = input()
@@ -139,7 +187,7 @@ for i in range(0, n):
 	x = user_input[0]
 	y = user_input[1]
 
-	print "Case %d" % (i + 1)
+	print "Case %d:" % (i + 1)
 	if(y == "dec"):
 		print "%s hex" % (dec_to_hex(x))
 		print "%s bin\n" % (dec_to_bin(x))
